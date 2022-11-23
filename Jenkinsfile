@@ -1,35 +1,41 @@
 pipeline {
   agent any
   stages {
-    stage('build-the-app') {
+    stage('build') {
       steps {
         echo 'this is the build job'
-        sh 'npm install'
+        sh 'mvn compile'
       }
     }
 
-    stage('test-the-app') {
+    stage('test') {
       steps {
         echo 'this is the test job'
-        sh 'npm test'
+        sh 'mvn test'
       }
     }
 
-    stage('package-app') {
+    stage('package') {
       steps {
         echo 'this is the package job'
-        sh 'npm run package'
+        sh 'mvn package'
+      }
+    }
+
+    stage('archive') {
+      steps {
+        archiveArtifacts '**/target/*.jar'
       }
     }
 
   }
   tools {
-    nodejs 'nodejs'
+    maven 'maven'
   }
   post {
     always {
-      echo 'Hey, this is my first pipeline as code...'
+      echo 'this pipeline has completed...'
     }
-
+                                             
   }
 }
