@@ -22,11 +22,6 @@ pipeline {
       }
     }
 
-    stage('archive-app') {
-      steps {
-        archiveArtifacts '**/distribution/*.zip'
-      }
-    }
 
   }
   tools {
